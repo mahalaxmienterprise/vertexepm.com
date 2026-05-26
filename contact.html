@@ -156,6 +156,8 @@ Monday - Friday<br>
 
 <label for="company">Company</label><br>
 <input type="text" id="company" name="company"><br><br>
+<label for="phone">Phone Number</label><br>
+<input type="text" id="phone" name="phone"><br><br>
 
 <label for="service">Service Requirement</label><br>
 
@@ -180,6 +182,7 @@ Monday - Friday<br>
 
 <br><br>
 
+<input type="text" name="website" style="display:none">
 <button type="submit" class="button">
 Submit Inquiry
 </button>
@@ -346,5 +349,48 @@ dropdown.style.display = "none";
 
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+
+(function() {
+emailjs.init("f9VZRnABh3yCbtqcj");
+})();
+
+document.getElementById("contact-form")
+.addEventListener("submit", function(event) {
+
+event.preventDefault();
+
+const status = document.getElementById("form-status");
+
+status.innerHTML = "Sending inquiry...";
+
+emailjs.sendForm(
+"service_zetqc84",
+"template_49gss7a",
+this
+)
+
+.then(function() {
+
+status.innerHTML =
+"Thank you! Your inquiry has been submitted successfully.";
+
+document.getElementById("contact-form").reset();
+
+},
+
+function(error) {
+
+status.innerHTML =
+"Failed to send inquiry. Please try again.";
+
+console.log(error);
+
+});
+
+});
+
+</script>
 </body>
 </html>
